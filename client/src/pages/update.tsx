@@ -1,11 +1,11 @@
 import React from 'react';
 
-const SignUpPage = () => {
+const UpdatePage = () => {
   return (
     <div className={ "page-not-found" }>
-      sign up 😭
+      Update 😭
     </div>
   );
 }
 
-export default SignUpPage;
+export default UpdatePage;
