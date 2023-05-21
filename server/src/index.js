@@ -5,7 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 const app = express();
-const port = process.env.EXPRESS_PORT;
+
 
 const statusRouter = require('./routes/status');
 const mjRouter = require('./routes/mj');
@@ -30,6 +30,8 @@ if (process.env.ENVIRONMENT === "DEVELOPMENT") {
 } else {
 	dotenv.config({ path: ".env.production" })
 }
+
+const port = process.env.EXPRESS_PORT;
 
 app.use('/status', statusRouter);
 app.use('/mj', mjRouter);

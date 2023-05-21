@@ -1,14 +1,14 @@
 version: "3"
 
 services:
-  sparcs-newbie-postgres:
-    image: postgres:15.2
-    container_name: sparcs-newbie-postgres
+  sparcs-newbie-mongo:
+    image: mongo:4.2
+    container_name: sparcs-newbie-mongo
     environment:
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
     ports:
-      - $POSTGRES_LOCAL_PORT:5432
+      - $MONGO_LOCAL_PORT:27017
     volumes:
       - sparcs-newbie-postgres-data:/var/lib/postgresql/data
 
