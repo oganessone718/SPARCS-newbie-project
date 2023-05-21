@@ -41,10 +41,6 @@ app.use('/static', express.static(path.join(__dirname,'public')));
 
 app.use(cors(corsOptions));
 
-app.get("/", (req, res) => {
-	res.send("Hello, World!");
-});
-
 // Connect to MongoDB
 const OMongooseOption = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose.connect(process.env.MONGO_URI, OMongooseOption).then(
