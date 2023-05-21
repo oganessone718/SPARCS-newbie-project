@@ -9,7 +9,7 @@
     "production": "ENVIRONMENT=\"PRODUCTION\" node src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "type": "module",
+  "type": "commonjs",
   "author": "Jiho park",
   "license": "ISC",
   "devDependencies": {
