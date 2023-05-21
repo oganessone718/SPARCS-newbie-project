@@ -7,6 +7,8 @@ const App = () => {
     <>
     <div className="App">
       HELLO!!!! HI ^^
+      My name is JM
+      I like MJ
       {/* <BrowserRouter>
       </Header>
         <Routes>

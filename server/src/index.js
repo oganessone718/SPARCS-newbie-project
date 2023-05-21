@@ -32,9 +32,8 @@ if (process.env.ENVIRONMENT === "DEVELOPMENT") {
 }
 
 app.use('/status', statusRouter);
-app.use('/feed', feedRouter);
+app.use('/mj', mjRouter);
 app.use('/account', accountRouter);
-app.use('/ssr', ssrRouter);
 
 app.use('/static', express.static(path.join(__dirname,'public')));
 
