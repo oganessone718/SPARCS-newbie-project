@@ -15,8 +15,8 @@ const App = () => {
   return (
     <>
     <div className="App">
-      <Header/>
-      {/* <BrowserRouter>
+      <BrowserRouter>
+        <Header/>
         <Routes>
           <Route path="/" element={ <HomePage/> }/>
           <Route path="/log-in" element={ <LoginPage/> }/>
@@ -27,7 +27,7 @@ const App = () => {
           <Route path="*" element={ <PageNotFound/> }/>
         </Routes>
       </BrowserRouter>
-      <Footer/> */}
+      <Footer/>
     </div>
     </>
 
