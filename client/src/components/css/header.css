@@ -1,0 +1,21 @@
+.header {
+  width: 100%;
+  /* max-width: 800px; */
+  /* margin: auto; */
+  display: flex;
+}
+
+img{
+  width: 200px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.header-content {
+  display:flex;
+  padding: 40px 30px;
+}
+
+.home-link:hover {
+  cursor: pointer;
+}

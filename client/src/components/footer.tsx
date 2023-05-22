@@ -4,10 +4,13 @@ import "./css/footer.css";
 
 const Header = () => {
   return (
+    <>
+    <hr/>
     <div className={"header"}>
-      <hr/>
       made by oganesson
     </div>
+    </>
+    
   );
 }
 

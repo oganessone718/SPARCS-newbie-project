@@ -13,13 +13,13 @@ class AccountDB {
     constructor() { console.log("[Account-DB] DB Init Completed"); }
 
     getAccount = async (user) => {
-      const {id, password} = user;
+        const {id, password} = user;
         try {
             const res = await AccountModel.findOne({id: id, password: password});
             if (!res){
-              alert("No User. Please check your ID or Password");
-              console.log("[Account-DB] Get Error: No User");
-              return {success: false};
+                alert("No User. Please check your ID or Password");
+                console.log("[Account-DB] Get Error: No User");
+            return {success: false};
             }
             return {success: true, account: res};
         } catch (e) {
@@ -29,22 +29,28 @@ class AccountDB {
     }
 
     signUpAccount = async (user) => {
-      const {id, nickName, password} = user;
-      try {
-          const exist = await AccountModel.findOne({id: id});
-          if(exist){
-            alert("Already Exist User. Please change your ID");
-            console.log("[Account-DB] Get Error: Already Exist User");
+        const {nickName, id, password} = user;
+        try {
+            const existNickName = await AccountModel.findOne({nickName: nickName});
+            if(existNickName){
+                alert("Already Exist NickName. Please change your NickName");
+                console.log("[Account-DB] Get Error: Already Exist NickName");
+                return false;
+            }
+            const existID = await AccountModel.findOne({id: id});
+            if(existID){
+                alert("Already Exist ID. Please change your ID");
+                console.log("[Account-DB] Get Error: Already Exist ID");
+                return false;
+            }
+            const newItem = new AccountModel({nickName: nickName, id: id, password: password, MJ: []});
+            newItem.save();
+            return true;
+        } catch (e) {
+            console.log(`[Account-DB] SignUp Error: ${ e }`);
             return false;
-          }
-          const newItem = new AccountModel({id: id, nickName: nickName, password: password, MJ: []});
-          newItem.save();
-          return true;
-      } catch (e) {
-          console.log(`[Account-DB] SignUp Error: ${ e }`);
-          return false;
-      }
-  }
+        }
+    }
 
 }
 
@@ -62,9 +68,9 @@ router.post('/getInfo', async(req, res) => {
 
 router.post('/signUp', async(req, res) => {
     try {
-        const { id, nickName, password } = req.body;
-        const accountInfo = await accountDBInst.signUpAccount({id: id, nickName: nickName, password: password});
-        if (account.success) res.status(200).json({ success: true });
+        const { nickName, id, password } = req.body;
+        const accountInfo = await accountDBInst.signUpAccount({nickName: nickName, id: id, password: password});
+        if (accountInfo) res.status(200).json({ success: true });
         else res.status(500).json({ error: "Account SignUp Error"})
     } catch (e) {
         return res.status(500).json({ error: e });
