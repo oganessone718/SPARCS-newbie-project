@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 var OSchemaDefinition = {
     nickName: String,
-    ID: String,
+    accountID: String,
     password: String,
     MJ:{
       type: Array,
