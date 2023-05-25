@@ -12,15 +12,6 @@ const SignUpPage = () => {
     "Please write your password"
   );
 
-  // const getAccountInformation = () => {
-  //   const asyncFun = async() => {
-  //     interface IAPIResponse { balance: number };
-  //     const { data } = await axios.post<IAPIResponse>(SAPIBase + '/account/getInfo', { credential: SAPIKEY });
-  //     setNBalance(data.balance);
-  //   }
-  //   asyncFun().catch((e) => window.alert(`AN ERROR OCCURED: ${e}`));
-  // }
-
   const createNewAccount = () => {
     const asyncFun = async () => {
       await axios.post( SAPIBase + '/account/signUp', { NickName, ID, Password } )

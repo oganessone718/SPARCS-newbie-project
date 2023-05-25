@@ -12,17 +12,19 @@ import UpdatePage from './pages/update';
 import PageNotFound from './pages/404';
 
 const App = () => {
+  const [loggedID, setLoggedID] = React.useState<string|null>(null);
+
   return (
     <>
     <div className="App">
       <BrowserRouter>
-        <Header/>
+      <Header loggedID={loggedID} setLoggedID={setLoggedID}/>
         <Routes>
-          <Route path="/" element={ <HomePage/> }/>
-          <Route path="/log-in" element={ <LoginPage/> }/>
+          <Route path="/" element={ <HomePage /> }/>
+          <Route path="/log-in" element={ <LoginPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
           <Route path="/sign-up" element={ <SignUpPage/> }/>
-          <Route path="/my-page" element={ <MyPage/> }/>
-          <Route path="/mj" element={ <MJPage/> }/>
+          <Route path="/my-page" element={ <MyPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
+          <Route path="/mj" element={ <MJPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
           <Route path="/update" element={ <UpdatePage/> }/>
           <Route path="*" element={ <PageNotFound/> }/>
         </Routes>

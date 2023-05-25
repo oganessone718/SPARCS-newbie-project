@@ -1,6 +1,11 @@
 import React from 'react';
 
-const MJPage = () => {
+interface Props {
+  loggedID: string | null;
+  setLoggedID: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const MJPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
   return (
     <div className={ "page-not-found" }>
       mj 😭

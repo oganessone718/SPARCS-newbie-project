@@ -1,10 +1,39 @@
 import React from 'react';
+const SAPIBase = "http://localhost:8080";
+import axios from "axios";
 
-const MyPage = () => {
+interface Props {
+  loggedID: string | null;
+  setLoggedID: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const MyPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
+  const [ID, setID] = React.useState<string>("");
+  const [MJ, setMJ] = React.useState<Array<String>>([]);
+  const [NickName, setNickName] = React.useState<string>("");
+
+  const getInfo = () => {
+    const asyncFun = async () => {
+      const account =  await axios.post( SAPIBase + '/account/myPage', {loggedID} )
+      console.log(account);
+      console.log(account.data);
+      setID(account.data.ID);
+      setNickName(account.data.NickName);
+      setMJ(account.data.MJ);
+    };
+    asyncFun().catch((e) => window.alert(`AN ERROR OCCURED! ${e}`));
+  };
+  
+  React.useEffect(() => {
+    getInfo();
+  }, []);
+
   return (
-    <div className={ "page-not-found" }>
-      MyPage 😭
-    </div>
+    <>
+    <div>Nickname: {NickName}</div>
+    <div>ID: {ID}</div>
+    <div>Your liked MJ Lists: {MJ}</div>
+    </>
   );
 }
 

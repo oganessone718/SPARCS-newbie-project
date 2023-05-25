@@ -14,35 +14,16 @@ class AccountDB {
     console.log("[Account-DB] DB Init Completed");
   }
 
-  getAccount = async (user) => {
-    const { id, password } = user;
-    try {
-      const res = await AccountModel.findOne({ accountID: id, password: password });
-      if (!res) {
-        alert("No User. Please check your ID or Password");
-        console.log("[Account-DB] Get Error: No User");
-        return { success: false };
-      }
-      return { success: true, account: res };
-    } catch (e) {
-      console.log(`[Account-DB] login Error: ${e}`);
-      return { success: false };
-    }
-  };
-
   signUpAccount = async (user) => {
     const { nickName, id, password } = user;
     try {
       const existNickName = await AccountModel.findOne({ nickName: nickName });
-      console.log(existNickName);
       if (existNickName!==null) {
-        // alert("Already Exist NickName. Please change your NickName");
         console.log("[Account-DB] Get Error: Already Exist NickName");
         return false;
       }
       const existID = await AccountModel.findOne({ accountID: id });
       if (existID!==null) {
-        // alert("Already Exist ID. Please change your ID");
         console.log("[Account-DB] Get Error: Already Exist ID");
         return false;
       }
@@ -52,7 +33,6 @@ class AccountDB {
         password: password,
         MJ: [],
       });
-      console.log(newItem);
       const save = newItem.save();
       return true;
     } catch (e) {
@@ -63,30 +43,48 @@ class AccountDB {
 
   loginAccount = async (user) => {
     const { id, password } = user;
-    console.log(id, password);
     try{
         const existID = await AccountModel.findOne({ accountID: id });
-        console.log(existID);
+        
         if (existID===null) {
-            window.alert("Already Exist ID. Please change your ID");
             console.log("[Account-DB] Get Error: No such ID");
-            return false;
+            return {success:false};
         }
-        if(existID.password!==password){
-            window.alert("Wrong Password. Please check your Password");
-            console.log("[Account-DB] Get Error: Wrong Password");
-            return false;
+        if (existID.password==password) {
+          console.log("[Account-DB] Login Success");
+            return {success:true, accountID:existID.accountID};
         }
         else{
-            window.alert("Login Success");
-            console.log("[Account-DB] Get Success: Login Success");
+            console.log("[Account-DB] Get Error: Wrong Password");
+            return {success:false};
         }
-        return true;
+        
     } catch (e) {
         console.log(`[Account-DB] Login Error: ${e}`);
-        return false;
+        return {success:false};
     }
-    }; 
+  };
+
+  getInfo = async (user) => {
+    console.log("user: ");
+    console.log(user);
+    const { id } = user;
+    console.log(id)
+    try{
+        const Account = await AccountModel.findOne({ accountID: id });
+        console.log("getInfo's account "+Account)
+        if (Account===null) {
+            console.log("[Account-DB] Get Error: No such ID");
+            return {success:false};
+        }else{
+            return {success:true, accountID:Account.accountID, nickName:Account.nickName, MJ:Account.MJ};
+        }
+        
+    } catch (e) {
+        console.log(`[Account-DB] Login Error: ${e}`);
+        return {success:false};
+    }
+  };
 }
 
 const accountDBInst = AccountDB.getInst();
@@ -114,8 +112,25 @@ router.post("/login", async (req, res) => {
         password: req.body.Password
       }
     );
+    
+    if (accountInfo)
+      return res.status(200).json({ success: true, ID:accountInfo.accountID });
+    else return res.status(500).json({ error: "Account Find Error" });
+  } catch (e) {
+    return res.status(500).json({ error: e });
+  }
+});
+
+router.post("/myPage", async (req, res) => {
+  try {
+    console.log("WHYRANO");
+    const accountInfo = await accountDBInst.getInfo({
+        id: req.body.loggedID,
+      }
+    );
+    console.log(accountInfo);
     if (accountInfo.success)
-      return res.status(200).json({ account: accountInfo.account });
+      return res.status(200).json({ ID:accountInfo.accountID, NickName:accountInfo.nickName, MJ:accountInfo.MJ });
     else return res.status(500).json({ error: "Account Find Error" });
   } catch (e) {
     return res.status(500).json({ error: e });

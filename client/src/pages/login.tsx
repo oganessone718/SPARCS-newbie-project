@@ -1,22 +1,32 @@
 import React from "react";
 import axios from "axios";
 import "./css/login.css";
+import { useNavigate } from "react-router-dom";
 const SAPIBase = "http://localhost:8080";
 
-const LoginPage = () => {
+interface Props {
+  loggedID: string | null;
+  setLoggedID: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
   const [ID, setID] = React.useState<string>("Please write your ID");
-  const [Password, setPassword] = React.useState<string>(
-    "Please write your password"
-  );
+  const [Password, setPassword] = React.useState<string>("Please write your password");
+
+  if(loggedID!=null){
+    console.log("[login error]: already logged in");
+  }
+
+  const navigate = useNavigate();
 
   const loginAccount = () => {
     const asyncFun = async () => {
-      await axios.post( SAPIBase + '/account/login', { ID, Password } )
-      .then(()=>{
-        setID("Please write your ID");
-        setPassword("Please write your password");
-      })
-      .catch((e)=>console.log(e));
+      const account =  await axios.post( SAPIBase + '/account/login', { ID, Password } )
+      setID("Please write your ID");
+      setPassword("Please write your password");
+      window.alert("You have logged in!");
+      setLoggedID(account.data.ID);
+      navigate("/");
     };
     asyncFun().catch((e) => window.alert(`AN ERROR OCCURED! ${e}`));
   };
