@@ -9,6 +9,7 @@ import SignUpPage from './pages/signup';
 import MyPage from './pages/mypage';
 import MJPage from './pages/mj';
 import UpdatePage from './pages/update';
+import MakeMJPage from './pages/makeMJ';
 import PageNotFound from './pages/404';
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/my-page" element={ <MyPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
           <Route path="/mj" element={ <MJPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
           <Route path="/update" element={ <UpdatePage/> }/>
+          <Route path="/makeMJ" element={ <MakeMJPage/> }/>
           <Route path="*" element={ <PageNotFound/> }/>
         </Routes>
       </BrowserRouter>

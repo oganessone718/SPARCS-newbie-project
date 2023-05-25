@@ -2,7 +2,8 @@ var mongoose = require("mongoose");
 
 var OSchemaDefinition = {
     name: String,
-    locatoin: String,
+    location: String,
+    specificLocation: String,
     mjType: String,
     like: {
       type: Number,
