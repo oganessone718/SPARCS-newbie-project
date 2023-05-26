@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 var OSchemaDefinition = {
   mjName: String,
   ID: String,
-  nickame: String,
+  nickName: String,
   comment: String,  
 };
 var OSchemaOptions = { timestamps: true };

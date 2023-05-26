@@ -7,7 +7,7 @@ import { set } from 'mongoose';
 
 const SAPIBase = "http://localhost:8080";
 
-interface IMJInfo { name: String; location: String; specificLocation: String; mjType: String; like: number; comments:Array<String>}
+interface IMJInfo { name: String; location: String; specificLocation: String; mjType: String; like: number;}
 
 interface Props {
   loggedID: string | null;
@@ -70,8 +70,8 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
     
   };  
 
-  const detailMJ = (name:String) => {
-    navigate("/detailMJ", { state: { name: name } });
+  const detailMJ = (mj: IMJInfo) => {
+    navigate("/detailMJ", { state: { name: mj.name, location:mj.location, specificLocation: mj.specificLocation ,mjType:mj.mjType, like:mj.like} });
   };  
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
@@ -125,7 +125,7 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
               <div className={"delete-item"} onClick={(e) => deleteMJ(val.name)}>DELETE</div>
               <div className={"edit-item"} onClick={(e) => editMJ(val)}>EDIT</div>
               <div className={"edit-item"} onClick={(e) => likeMJ(val.name)}>LIKE</div>
-              <div className={"edit-item"} onClick={(e) => detailMJ(val.name)}>DETAIL</div>
+              <div className={"edit-item"} onClick={(e) => detailMJ(val)}>DETAIL</div>
               <h2 className={"feed-title"}>{ val.name }</h2>
               <p className={"feed-body"}># { val.location }</p>
               <p className={"feed-body"}># { val.mjType }</p>

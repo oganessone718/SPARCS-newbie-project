@@ -15,8 +15,6 @@ const MyPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
   const getInfo = () => {
     const asyncFun = async () => {
       const account =  await axios.post( SAPIBase + '/account/myPage', {loggedID} )
-      console.log(account);
-      console.log(account.data);
       setID(account.data.ID);
       setNickName(account.data.NickName);
       setMJ(account.data.MJ);
@@ -28,11 +26,13 @@ const MyPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
     getInfo();
   }, []);
 
+  const MJString = MJ.join(', ');
+
   return (
     <>
     <div>Nickname: {NickName}</div>
     <div>ID: {ID}</div>
-    <div>Your liked MJ Lists: {MJ}</div>
+    <div>Your liked MJ Lists: {MJString}</div>
     </>
   );
 }

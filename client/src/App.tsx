@@ -33,7 +33,7 @@ const App = () => {
           <Route path="/log-in" element={ <LoginPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
           <Route path="/sign-up" element={ <SignUpPage/> }/>
           <Route path="/my-page" element={ <MyPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
-          <Route path="/detail" element={ <DetailPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
+          <Route path="/detailMJ" element={ <DetailPage loggedID={loggedID} setLoggedID={setLoggedID}/> }/>
           <Route path="/editMJ" element={ <EditPage/> }/>
           <Route path="/makeMJ" element={ <MakeMJPage count={count} setCount={setCount}/> }/>
           <Route path="*" element={ <PageNotFound/> }/>

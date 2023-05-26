@@ -9,6 +9,7 @@ const app = express();
 const statusRouter = require("./routes/status");
 const mjRouter = require("./routes/mj");
 const accountRouter = require("./routes/account");
+const commentRouter = require("./routes/comment");
 
 app.use(express.json());
 
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 app.use("/status", statusRouter);
 app.use("/mj", mjRouter);
 app.use("/account", accountRouter);
+app.use("/comment", commentRouter);
 
 app.use("/static", express.static(path.join(__dirname, "public")));
 

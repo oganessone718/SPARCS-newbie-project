@@ -8,10 +8,6 @@ var OSchemaDefinition = {
     like: {
       type: Number,
       default: 0
-    },
-    comments:{
-      type: Array,
-      default: []
     }
 };
 var OSchemaOptions = { timestamps: true };

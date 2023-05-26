@@ -60,7 +60,7 @@ class MJDB {
     deleteMJ = async ( name ) => {
         try {
             const ODeleteFiler = { name: name.name };
-            const res = await MJModel.deleteOne({});
+            const res = await MJModel.deleteOne(ODeleteFiler);
             return true;
         } catch (e) {
             console.log(`[MJ-DB] Delete Error: ${ e }`);
@@ -91,6 +91,7 @@ router.get('/getMj', async (req, res) => {
         return res.status(500).json({ error: e });
     }
 });
+
 
 router.post("/addMJ", async (req, res) => {
     try {

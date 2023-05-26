@@ -14,6 +14,17 @@ class AccountDB {
     console.log("[Account-DB] DB Init Completed");
   }
 
+  
+  getAccount = async (id) => {
+    try {
+        const res = await AccountModel.findOne({accountID: id.id});
+        return { success: true, data: res };
+    } catch (e) {
+        console.log(`[MJ-DB] Select Error: ${ e }`);
+        return { success: false, data: `DB Error - ${ e }` };
+    }
+}
+
   signUpAccount = async (user) => {
     const { nickName, id, password } = user;
     try {
@@ -67,10 +78,7 @@ class AccountDB {
   };
 
   getInfo = async (user) => {
-    console.log("user: ");
-    console.log(user);
     const { id } = user;
-    console.log(id)
     try{
         const Account = await AccountModel.findOne({ accountID: id });
         console.log("getInfo's account "+Account)
@@ -136,7 +144,16 @@ class AccountDB {
 
 const accountDBInst = AccountDB.getInst();
 
-
+router.post('/getAccount', async (req, res) => {
+  try {
+      const dbRes = await accountDBInst.getAccount({
+          id: req.body.id
+      });
+      return res.status(200).json(dbRes.data);
+  } catch (e) {
+      return res.status(500).json({ error: e });
+  }
+});
 
 router.post("/signUp", async (req, res) => {
   try {
