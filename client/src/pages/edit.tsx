@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./css/home.css";
 const SAPIBase = "http://localhost:8080";
@@ -9,32 +10,34 @@ interface Props {
   setCount: React.Dispatch<React.SetStateAction<number>>; 
 }
 
-const MakeMJPage: React.FC<Props>= ({ count, setCount }) => {
-
-  const [name,setName] = React.useState("");
-  const [location,setLocation] = React.useState("어은동");
-  const [specificLocation,setSpecificLocation] = React.useState("");
-  const [mjType,setMJType] = React.useState("한식");
-
+const EditPage = () => {
+  const locate = useLocation();
   const navigate = useNavigate();
+  
+  const state = locate.state as { name: string, location: string, specificLocation: string, mjType: string };
 
-  const createMJ = () => {
+  const oldName = state.name;
+  const [name,setName] = React.useState(state.name);
+  const [location,setLocation] = React.useState(state.location);
+  const [specificLocation,setSpecificLocation] = React.useState(state.specificLocation);
+  const [mjType,setMJType] = React.useState(state.mjType);
+
+  const editMJ = () => {
     const asyncFun = async () => {
-      await axios.post( SAPIBase + '/mj/addMJ', { name:name, location:location, specificLocation:specificLocation, mjType:mjType});
-      window.alert("MJ Added!");
+      await axios.post( SAPIBase + '/mj/editMJ', { oldName:oldName, name:name, location:location, specificLocation:specificLocation, mjType:mjType});
+      window.alert("MJ Modified!");
       navigate("/");
-      setCount(count + 1);
     }
     asyncFun().catch(e => window.alert(`AN ERROR OCCURED! ${e}`));
   }
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    createMJ();
+    editMJ();
   };
-
   return(
     <>    
+    <h2>EDIT the 맛집</h2>
     <form onSubmit={handleSubmit}>
       <label htmlFor="name">이름:</label>
       <input
@@ -77,4 +80,4 @@ const MakeMJPage: React.FC<Props>= ({ count, setCount }) => {
     </>
   );
 }
-export default MakeMJPage;
+export default EditPage;

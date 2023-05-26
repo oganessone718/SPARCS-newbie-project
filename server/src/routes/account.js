@@ -52,6 +52,7 @@ class AccountDB {
         }
         if (existID.password==password) {
           console.log("[Account-DB] Login Success");
+          console.log(existID.accountID);
             return {success:true, accountID:existID.accountID};
         }
         else{
@@ -85,6 +86,52 @@ class AccountDB {
         return {success:false};
     }
   };
+
+  likeAccount = async (user) => {
+    const { id, name } = user;
+    if(id==null){
+        console.log("[Account-DB] Get Error: No ID");
+        return false;
+    }    
+    try{
+        const LikeFiler = { accountID: id };    
+        const Account = await AccountModel.findOne(LikeFiler);
+        if (Account===null) {
+            console.log("[Account-DB] Get Error: No such ID");
+            return false;
+        }
+        console.log(Account.MJ);
+        if(Account.MJ.includes(name)){
+            console.log("[Account-DB] Get Error: Already Like");
+          return false;
+        }
+        const newMJ = Account.MJ;
+        newMJ.push(name);
+        console.log(newMJ);
+        const res = await AccountModel.updateOne(LikeFiler,{$set:{MJ:newMJ}});
+        return true;
+        
+    } catch (e) {
+        console.log(`[Account-DB] Login Error: ${e}`);
+        return false;
+    }
+  };
+
+  deleteMJAccount = async (user) => {
+    const { name } = user;
+    console.log(name);
+    try{
+        const DeleteFiler = {MJ: {$in:[name]}};
+        // I want to make variable update, which remove name from MJ list
+        const update = {$pull:{MJ:name}};
+        const result = await AccountModel.updateMany(DeleteFiler, update);
+        return true;
+        
+    } catch (e) {
+        console.log(`[Account-DB] Delete Error: ${e}`);
+        return false;
+    }
+  };
 }
 
 const accountDBInst = AccountDB.getInst();
@@ -112,18 +159,16 @@ router.post("/login", async (req, res) => {
         password: req.body.Password
       }
     );
-    
-    if (accountInfo)
+    if (accountInfo.success)
       return res.status(200).json({ success: true, ID:accountInfo.accountID });
-    else return res.status(500).json({ error: "Account Find Error" });
+    else return res.status(500).json({ success: false, error: "Account Find Error" });
   } catch (e) {
-    return res.status(500).json({ error: e });
+    return res.status(500).json({ success: false, error: e });
   }
 });
 
 router.post("/myPage", async (req, res) => {
   try {
-    console.log("WHYRANO");
     const accountInfo = await accountDBInst.getInfo({
         id: req.body.loggedID,
       }
@@ -134,6 +179,35 @@ router.post("/myPage", async (req, res) => {
     else return res.status(500).json({ error: "Account Find Error" });
   } catch (e) {
     return res.status(500).json({ error: e });
+  }
+});
+
+router.post("/likeMJ", async (req, res) => {
+  try {
+    const accountInfo = await accountDBInst.likeAccount({
+        id: req.body.id,
+        name: req.body.name
+      }
+    );
+    if (accountInfo)
+      return res.status(200).json({ success: true});
+    else return res.status(500).json({ success: false, error: "Account Find Error" });
+  } catch (e) {
+    return res.status(500).json({ success: false, error: e });
+  }
+});
+
+router.post("/deleteMJ", async (req, res) => {
+  try {
+    const accountInfo = await accountDBInst.deleteMJAccount({
+        name: req.body.name
+      }
+    );
+    if (accountInfo)
+      return res.status(200).json({ success: true});
+    else return res.status(500).json({ success: false, error: "Account Find Error" });
+  } catch (e) {
+    return res.status(500).json({ success: false, error: e });
   }
 });
 

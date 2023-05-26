@@ -21,40 +21,55 @@ const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
 
   const loginAccount = () => {
     const asyncFun = async () => {
-      const account =  await axios.post( SAPIBase + '/account/login', { ID, Password } )
-      setID("Please write your ID");
-      setPassword("Please write your password");
-      window.alert("You have logged in!");
-      setLoggedID(account.data.ID);
-      navigate("/");
+      await axios.post( SAPIBase + '/account/login', { ID, Password } )
+      .then((account)=>{
+        console.log(account.data);
+        if(account.data.success){
+          window.alert("You have logged in!")
+          setID("Please write your ID");
+          setPassword("Please write your password");
+          setLoggedID(account.data.ID);
+          navigate("/");
+        }
+        else{
+          window.alert("Login failed! check your ID and password again");
+        }
+        
+      })
+      .catch((e)=>{
+        window.alert(`AN ERROR OCCURED! ${e}`);
+      });
     };
     asyncFun().catch((e) => window.alert(`AN ERROR OCCURED! ${e}`));
   };
 
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    loginAccount();
+  };
+
   return (
-    <div className={"account"}>
-      <h2>Login</h2>
-      <div className={"account-item"}>
-        ID:{" "}
+    <>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="ID">ID:</label>
         <input
-          type={"text"}
+          type="text"
+          id="ID"
           value={ID}
           onChange={(e) => setID(e.target.value)}
+          required
         />
-        Password:{" "}
+        <label htmlFor="password">Password:</label>
         <input
-          type={"text"}
+          type="password"
+          id="password"
           value={Password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
-        <div
-          className={"account-create-button"}
-          onClick={(e) => loginAccount()}
-        >
-          Login
-        </div>
-      </div>
-    </div>
+        <button type="submit"> Login </button>
+      </form>
+    </>
   );
 };
 

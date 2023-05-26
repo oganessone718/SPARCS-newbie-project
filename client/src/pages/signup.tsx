@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "./css/signup.css";
+import { useNavigate } from "react-router-dom";
 const SAPIBase = "http://localhost:8080";
 
 const SignUpPage = () => {
@@ -12,6 +13,8 @@ const SignUpPage = () => {
     "Please write your password"
   );
 
+  const navigate = useNavigate();
+
   const createNewAccount = () => {
     const asyncFun = async () => {
       await axios.post( SAPIBase + '/account/signUp', { NickName, ID, Password } )
@@ -20,6 +23,7 @@ const SignUpPage = () => {
         setID("Please write your ID");
         setPassword("Please write your password");
         window.alert("Your account has been created!");
+        navigate("/log-in");
       })
       .catch((e)=>console.log(e));
     };

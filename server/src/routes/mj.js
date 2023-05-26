@@ -38,7 +38,6 @@ class MJDB {
                 like: 0,
                 comments: [],
             });
-            console.log(newItem);
             const save = newItem.save();
             return true;
         } catch (e) {
@@ -47,11 +46,10 @@ class MJDB {
         }
     };
 
-    insertItem = async ( item ) => {
-        const { title, content } = item;
+    likeMJ = async ( name ) => {
         try {
-            const newItem = new MJModel({ title, content });
-            const res = await newItem.save();
+            const OLikeFiler = { name: name.name };
+            const res = await MJModel.updateOne(OLikeFiler,{$inc:{like: 1}});
             return true;
         } catch (e) {
             console.log(`[MJ-DB] Insert Error: ${ e }`);
@@ -59,10 +57,10 @@ class MJDB {
         }
     }
 
-    deleteItem = async ( id ) => {
+    deleteMJ = async ( name ) => {
         try {
-            const ODeleteFiler = { _id: id };
-            const res = await MJModel.deleteOne(ODeleteFiler);
+            const ODeleteFiler = { name: name.name };
+            const res = await MJModel.deleteOne({});
             return true;
         } catch (e) {
             console.log(`[MJ-DB] Delete Error: ${ e }`);
@@ -70,10 +68,11 @@ class MJDB {
         }
     }
 
-    editItem = async ( id, edittitle, editcontent ) => {
+    editMJ = async ( mj ) => {
+        const { oldName, name, location, specificLocation, mjType } = mj;
         try {
-            const OEditFiler = { _id: id };
-            const res = await MJModel.updateOne(OEditFiler,{$set:{title: edittitle, content: editcontent}});
+            const OEditFiler = { name: oldName };
+            const res = await MJModel.updateOne(OEditFiler,{$set:{name: name, location: location, specificLocation: specificLocation, mjType: mjType}});
             return true;
         } catch (e) {
             console.log(`[MJ-DB] Edit Error: ${ e }`);
@@ -87,7 +86,6 @@ const mjDBInst = MJDB.getInst();
 router.get('/getMj', async (req, res) => {
     try {
         const dbRes = await mjDBInst.getMJ();
-        console.log(dbRes);
         return res.status(200).json(dbRes.data);
     } catch (e) {
         return res.status(500).json({ error: e });
@@ -106,6 +104,46 @@ router.post("/addMJ", async (req, res) => {
     else res.status(500).json({ error: "MJ SignUp Error" });
     } catch (e) {
     return res.status(500).json({ error: e });
+    }
+});
+
+router.post("/deleteMJ", async (req, res) => {
+    try {
+        const MJInfo = await mjDBInst.deleteMJ({
+        name: req.body.name
+        });
+        if (MJInfo) res.status(200).json({ success: true });
+        else res.status(500).json({ error: "MJ SignUp Error" });
+    } catch (e) {
+        return res.status(500).json({ error: e });
+    }
+});
+
+router.post("/likeMJ", async (req, res) => {
+    try {
+        const MJInfo = await mjDBInst.likeMJ({
+            name: req.body.name
+        });
+        if (MJInfo) res.status(200).json({ success: true });
+        else res.status(500).json({ error: "MJ Like Error" });
+    } catch (e) {
+        return res.status(500).json({ error: e });
+    }
+});
+
+router.post("/editMJ", async (req, res) => {
+    try {
+        const MJInfo = await mjDBInst.editMJ({
+            oldName: req.body.oldName,
+            name: req.body.name,
+            location: req.body.location,
+            specificLocation: req.body.specificLocation,
+            mjType: req.body.mjType,
+        });
+        if (MJInfo) res.status(200).json({ success: true });
+        else res.status(500).json({ error: "MJ Like Error" });
+    } catch (e) {
+        return res.status(500).json({ error: e });
     }
 });
 
