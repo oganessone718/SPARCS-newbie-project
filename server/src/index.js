@@ -12,8 +12,8 @@ const accountRouter = require("./routes/account");
 const commentRouter = require("./routes/comment");
 
 app.use(express.json());
-
-const whitelist = ["http://localhost:5173"];
+console.log("???")
+const whitelist = ["http://ssal.sparcs.org:15188/"];
 const corsOptions = {
   origin: (origin, callback) => {
     console.log("[REQUEST-CORS] Request from origin: ", origin);
@@ -48,6 +48,8 @@ app.use("/comment", commentRouter);
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 // Connect to MongoDB
+
+console.log(process.env.MONGO_URI)
 const OMongooseOption = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose.connect(process.env.MONGO_URI, OMongooseOption).then(
   () => {
@@ -59,5 +61,5 @@ mongoose.connect(process.env.MONGO_URI, OMongooseOption).then(
 );
 
 app.listen(port, () => {
-  console.log(`Express Listening @ http://localhost:${port}`);
+  console.log(`Express Listening @ http://ssal.sparcs.org:15186/`);
 });

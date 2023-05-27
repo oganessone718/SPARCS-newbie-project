@@ -1,5 +1,5 @@
 import React from 'react';
-const SAPIBase = "http://localhost:8080";
+const SAPIBase = "http://ssal.sparcs.org:15189/";
 import axios from "axios";
 import "./css/mypage.css";
 

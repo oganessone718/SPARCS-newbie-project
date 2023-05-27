@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./css/home.css";
-const SAPIBase = "http://localhost:8080";
+const SAPIBase = "http://ssal.sparcs.org:15189/";
 
 interface Props {
   count: number;
