@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/header.css";
-const SAPIBase = "http://ssal.sparcs.org:15189/";
+const SAPIBase = "http://ssal.sparcs.org:15189";
 const url = "https://times.kaist.ac.kr/news/articleList.html?sc_serial_code=SRN12&view_type=sm"
 
 interface Props {

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./css/signup.css";
-const SAPIBase = "http://ssal.sparcs.org:15189/";
+const SAPIBase = "http://ssal.sparcs.org:15189";
 
 const SignUpPage = () => {
   const [NickName, setNickName] = React.useState<string>("");

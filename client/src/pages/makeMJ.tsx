@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-const SAPIBase = "http://ssal.sparcs.org:15189/";
+const SAPIBase = "http://ssal.sparcs.org:15189";
 
 interface Props {
   count: number;

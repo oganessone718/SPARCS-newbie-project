@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const SAPIBase = "http://ssal.sparcs.org:15189/";
+const SAPIBase = "http://ssal.sparcs.org:15189";
 
 interface Props {
   loggedID: string | null;

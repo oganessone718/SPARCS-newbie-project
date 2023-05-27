@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./css/detailMJ.css";
-const SAPIBase = "http://ssal.sparcs.org:15189/";
+const SAPIBase = "http://ssal.sparcs.org:15189";
 
 interface Props {
   loggedID: string | null;
