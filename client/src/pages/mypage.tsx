@@ -40,7 +40,7 @@ const MyPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
       <div className='tag'> ID: </div>{ID}
     </div>
     <br/>
-    <div><div className="tag"> Your liked MJ Lists: </div>{MJString}
+    <div><div className="tag"> Your liked 맛집 Lists: </div>{MJString}
     </div>
     <br/>
     </>

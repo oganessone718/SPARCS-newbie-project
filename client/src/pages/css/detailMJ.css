@@ -27,14 +27,14 @@
     position: relative;
 }
 
-.delete-item {
+.delete-comment {
     right: 15px;
     top: 12px;
     color: grey;
-    font-size: 18px;
+    font-size: 12px;
 }
 
-.delete-item:hover {
+.delete-comment:hover {
     font-weight: bold;
     cursor: pointer;
 }

@@ -53,7 +53,7 @@ const Header: React.FC<Props>= ({ loggedID, setLoggedID }) => {
           
         </ul>
           <ul className={"header-content"} >
-            <li>user:{loggedID}</li>
+            <li>user ID:  {loggedID}</li>
             <li onClick={(e) => onClickLogout()}><button>Log out</button></li>
             <li onClick={(e) => navigate("/my-page")}><button>My Page</button></li>
             <li className="kaisttimes" onClick={()=>{window.open(url)}}>

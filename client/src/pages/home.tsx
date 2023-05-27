@@ -83,7 +83,7 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
   return (
     <>    
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">이름 검색:</label>
+      <label htmlFor="name">이름 검색:  </label>
       <input
         type="text"
         id="name"
@@ -91,7 +91,7 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
         onChange={(e) => setSName(e.target.value)}
       />
       <br />
-      <label htmlFor="location">장소:</label>
+      <label htmlFor="location">장소:  </label>
       <select id="location" value={Slocation} onChange={(e)=>{setSLocation(e.target.value)}} required>
       <option value="전체">전체</option>
         <option value="어은동">어은동</option>
@@ -102,7 +102,7 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
         <option value="은행동">은행동</option>
         <option value="기타">기타</option>
       </select>
-      <label htmlFor="location">종류:</label>
+      <label htmlFor="location">종류:  </label>
       <select id="location" value={SmjType} onChange={(e)=>setSMJType(e.target.value)} required>
         <option value="전체">전체</option>
         <option value="한식">한식</option>
@@ -124,15 +124,20 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
           if((val.name == (Sname) || Sname=="") && (val.location == (Slocation) || Slocation=="전체") && (val.mjType == (SmjType) || SmjType=="전체")){
             return (
               <div key={i} className={"mj-item"}>
-              <div className={"delete-item"} onClick={(e) => deleteMJ(val.name)}>DELETE</div>
-              <div className={"edit-item"} onClick={(e) => editMJ(val)}>EDIT</div>
-              <div className={"like-item"} onClick={(e) => likeMJ(val.name)}>LIKE</div>
-              <div className={"detail-item"} onClick={(e) => detailMJ(val)}>DETAIL</div>
-              <h2 className={"mj-title"}>{ val.name }</h2>
-              <p className={"mj-body"}>#{ val.location }</p>
-              <p className={"mj-body"}>#{ val.mjType }</p>
-              <p className={"mj-body"}>♥{ val.like }</p>
-            </div>
+                <div className='buttons'>
+                  <div className={"delete-item"} onClick={(e) => deleteMJ(val.name)}>DELETE</div>
+                  <div className={"edit-item"} onClick={(e) => editMJ(val)}>EDIT</div>
+                  <div className={"like-item"} onClick={(e) => likeMJ(val.name)}>LIKE</div>
+                  <div className={"detail-item"} onClick={(e) => detailMJ(val)}>DETAIL</div>
+                </div>
+                <h2 className={"mj-title"}>{ val.name }</h2>
+                <div className='info'>
+                  <p className={"mj-body"}>#{ val.location }</p>
+                  <p className={"mj-body"}>#{ val.mjType }</p>
+                  <p className={"mj-body"}>❤️{ val.like }</p>
+                </div>
+                
+              </div>
             );
           }
         }

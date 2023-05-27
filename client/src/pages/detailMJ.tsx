@@ -36,6 +36,7 @@ const DetailPage : React.FC<Props>= ({ loggedID,setLoggedID}) => {
       const {data} = await axios.post( SAPIBase + '/account/getAccount',{id: loggedID});
       await axios.post( SAPIBase + '/comment/addComment', { mjName:state.name,ID: loggedID, nickName: data.nickName, comment: comment } );
       setCount(count + 1);
+      setComment("");
     }
     asyncFun().catch(e => window.alert(`kerweAN ERROR OCCURED! ${e}`));
   }
@@ -58,21 +59,23 @@ const DetailPage : React.FC<Props>= ({ loggedID,setLoggedID}) => {
       <div className="Info">
         <h2>{state.name}</h2>
         <div>location: # {state.location}</div>
-        <div>specificLocation: {state.specificLocation}</div>
-        <div>mjType: # {state.mjType}</div>
+        <div>specific Location: {state.specificLocation}</div>
+        <div>맛집Type: # {state.mjType}</div>
         <div>♥ {state.like}</div>
       </div>
+      <br/>
+      <br/>
       <div className='comments'>
         <h3>comments</h3>
           <div className='make-comment'>
-            <input type="text" id="comment" value={comment} onChange={(e)=>setComment(e.target.value)}/>
+            comment:  <input type="text" id="comment" value={comment} onChange={(e)=>setComment(e.target.value)}/>
             <button onClick={submitComment}>submit</button>
           </div>
           <div className={"comment-list"}>
             { COMMENTInfo.map( (val, i) =>{
               return (
                   <div key={i} className={"comment-item"}>
-                  <div className={"delete-item"} onClick={(e) => deleteComment(val.ID)}>DELETE</div>
+                  <div className={"delete-comment"} onClick={(e) => deleteComment(val.ID)}>DELETE</div>
                   <h3 className={"comment-title"}>{ val.nickName }</h3>
                   <p className={"comment-body"}>{ val.comment }</p>
                 </div>

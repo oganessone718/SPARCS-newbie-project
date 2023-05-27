@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import "./css/login.css";
 import { useNavigate } from "react-router-dom";
 const SAPIBase = "http://localhost:8080";
 
@@ -51,8 +50,7 @@ const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
     <>
       <form onSubmit={handleSubmit}>
         <h2>Login</h2>
-        <br/>
-        <label htmlFor="ID">ID:</label>
+        <label htmlFor="ID">ID:  </label>
         <input
           type="text"
           id="ID"
@@ -61,7 +59,7 @@ const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
           required
         />
         <br />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">Password:  </label>
         <input
           type="password"
           id="password"

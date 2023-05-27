@@ -35,7 +35,7 @@ const MakeMJPage: React.FC<Props>= ({ count, setCount }) => {
   return(
     <>    
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">이름:</label>
+      <label htmlFor="name">이름:  </label>
       <input
         type="text"
         id="name"
@@ -44,7 +44,7 @@ const MakeMJPage: React.FC<Props>= ({ count, setCount }) => {
         required
       />
       <br />
-      <label htmlFor="location">장소:</label>
+      <label htmlFor="location">장소:  </label>
       <select id="location" value={location} onChange={(e)=>{setLocation(e.target.value)}} required>
         <option value="어은동">어은동</option>
         <option value="궁동">궁동</option>
@@ -55,7 +55,7 @@ const MakeMJPage: React.FC<Props>= ({ count, setCount }) => {
         <option value="기타">기타</option>
       </select>
       <br />
-      <label htmlFor="specific-location">주소:</label>
+      <label htmlFor="specific-location">주소:  </label>
       <input
         type="text"
         id="specific-location"
@@ -64,7 +64,7 @@ const MakeMJPage: React.FC<Props>= ({ count, setCount }) => {
         required
       />
       <br />
-      <label htmlFor="location">종류:</label>
+      <label htmlFor="location">종류:  </label>
       <select id="location" value={mjType} onChange={(e)=>setMJType(e.target.value)} required>
         <option value="한식">한식</option>
         <option value="일식">일식</option>
@@ -75,7 +75,7 @@ const MakeMJPage: React.FC<Props>= ({ count, setCount }) => {
         <option value="기타">기타</option>
       </select>
       <br />
-      <button type="submit"> 맛집 추가하기 </button>
+      <button type="submit"> Create! </button>
     </form>
     </>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import "./css/signup.css";
 import { useNavigate } from "react-router-dom";
 const SAPIBase = "http://localhost:8080";
 
@@ -41,9 +40,8 @@ const SignUpPage = () => {
   return (
     <div className={"account"}>
       <h2>Sign up</h2>
-      <br />
       <div className={"account-item"}>
-        NickName:{" "}
+        NickName:  
         <input
           type={"text"}
           value={NickName}
@@ -51,7 +49,7 @@ const SignUpPage = () => {
           required
         />
         <br />
-        ID:{" "}
+        ID:  
         <input
           type={"text"}
           value={ID}
@@ -59,7 +57,7 @@ const SignUpPage = () => {
           required
         />
         <br />
-        Password:{" "}
+        Password:   
         <input
           type={"text"}
           value={Password}
@@ -71,7 +69,7 @@ const SignUpPage = () => {
           className={"account-create-button"}
           onClick={(e) => createNewAccount()}
         >
-        <button>Create!</button>
+        <button> Create!</button>
         </div>
       </div>
     </div>
