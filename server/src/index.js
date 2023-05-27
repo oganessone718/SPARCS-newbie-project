@@ -12,17 +12,17 @@ const accountRouter = require("./routes/account");
 const commentRouter = require("./routes/comment");
 
 app.use(express.json());
-// console.log("???")
-// const whitelist = ["http://ssal.sparcs.org:15188/"];
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     console.log("[REQUEST-CORS] Request from origin: ", origin);
-//     if (!origin || whitelist.indexOf(origin) !== -1) callback(null, true);
-//     else callback(new Error("Not Allowed by CORS"));
-//   },
-//   //   origin: whitelist,
-//   credentials: true,
-// };
+console.log("???")
+const whitelist = ["http://ssal.sparcs.org:15188"];
+const corsOptions = {
+  origin: (origin, callback) => {
+    console.log("[REQUEST-CORS] Request from origin: ", origin);
+    if (!origin || whitelist.indexOf(origin) !== -1) callback(null, true);
+    else callback(new Error("Not Allowed by CORS"));
+  },
+  //   origin: whitelist,
+  credentials: true,
+};
 /* DO NOT REMOVE */
 /* Configure Environment Variables */
 if (process.env.ENVIRONMENT === "DEVELOPMENT") {
@@ -33,7 +33,7 @@ if (process.env.ENVIRONMENT === "DEVELOPMENT") {
 
 const port = process.env.EXPRESS_PORT;
 
-// app.use(cors(corsOptions));
+app.use(cors());
 
 app.use((req, res, next) => {
   console.log("[REQUEST] ", req.method, req.url, req.origin);
