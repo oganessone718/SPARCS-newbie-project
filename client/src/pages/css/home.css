@@ -1,11 +1,11 @@
-.feed-list {
+.mj-list {
     padding: 25px 10px;
     width: calc(100% - 20px);
     max-width: 800px;
     margin: auto;
 }
 
-.feed-item {
+.mj-item {
     border: solid 1px rgba(0,0,0,0.2);
     border-radius: 15px;
     width: 100%;
@@ -13,34 +13,20 @@
     position: relative;
 }
 
-.feed-item-edit {
-    border: solid 5px rgb(255, 0, 0);
-    border-radius: 15px;
-    width: 100%;
-    margin: 10px 0;
-    position: relative;
-}
-
-.feed-item-add {
+.mj-item-add {
+    margin: 20px;
     border: solid 1px black;
     border-radius: 15px;
 }
 
-
-.post-add-button {
+.mj-add-button {
     padding: 10px;
 }
 
-.post-add-button:hover {
+.mj-add-button:hover {
     cursor: pointer;
     font-weight: 700;
 }
-
-/* .button{
-    color: green;
-    width: 30px;
-    height: 30px;
-} */
 
 .delete-item {
     right: 15px;
@@ -63,6 +49,13 @@
     font-size: 18px;
 }
 
+.detail-item {
+    right: 15px;
+    top: 12px;
+    color: grey;
+    font-size: 18px;
+}
+
 .delete-item:hover {
     font-weight: bold;
     cursor: pointer;
@@ -74,6 +67,11 @@
 }
 
 .like-item:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.detail-item:hover {
     font-weight: bold;
     cursor: pointer;
 }

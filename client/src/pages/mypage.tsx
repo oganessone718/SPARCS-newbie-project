@@ -1,6 +1,7 @@
 import React from 'react';
 const SAPIBase = "http://localhost:8080";
 import axios from "axios";
+import "./css/mypage.css";
 
 interface Props {
   loggedID: string | null;
@@ -30,9 +31,18 @@ const MyPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
 
   return (
     <>
-    <div>Nickname: {NickName}</div>
-    <div>ID: {ID}</div>
-    <div>Your liked MJ Lists: {MJString}</div>
+    <h2>My Page</h2>
+    <div>
+      <div className='tag'> Nickname: </div>{NickName}
+    </div>
+    <br/>
+    <div>
+      <div className='tag'> ID: </div>{ID}
+    </div>
+    <br/>
+    <div><div className="tag"> Your liked MJ Lists: </div>{MJString}
+    </div>
+    <br/>
     </>
   );
 }

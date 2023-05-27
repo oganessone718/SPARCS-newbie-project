@@ -34,7 +34,7 @@ class CommentDB {
             const save = newItem.save();
             return true;
         } catch (e) {
-            console.log(`[Account-DB] SignUp Error: ${e}`);
+            console.log(`[Comment-DB] add Error: ${e}`);
             return false;
         }
     };
@@ -45,7 +45,18 @@ class CommentDB {
             const res = await CommentModel.deleteOne(ODeleteFiler);
             return true;
         } catch (e) {
-            console.log(`[MJ-DB] Delete Error: ${ e }`);
+            console.log(`[Comment-DB] Delete Error: ${ e }`);
+            return false;
+        }
+    }
+
+    deleteMJ = async ( info ) => {
+        try {
+            const ODeleteFiler = { mjName: info.name };
+            const res = await CommentModel.deleteMany(ODeleteFiler);
+            return true;
+        } catch (e) {
+            console.log(`[Comment-DB] Delete MJ Error: ${ e }`);
             return false;
         }
     }
@@ -84,6 +95,18 @@ router.post("/deleteComment", async (req, res) => {
     try {
         const CommentInfo = await commentDBInst.deleteComment({
         id: req.body.id
+        });
+        if (CommentInfo) res.status(200).json({ success: true });
+        else res.status(500).json({ error: "Comment SignUp Error" });
+    } catch (e) {
+        return res.status(500).json({ error: e });
+    }
+});
+
+router.post("/deleteMJ", async (req, res) => {
+    try {
+        const CommentInfo = await commentDBInst.deleteMJ({
+            name: req.body.name
         });
         if (CommentInfo) res.status(200).json({ success: true });
         else res.status(500).json({ error: "Comment SignUp Error" });

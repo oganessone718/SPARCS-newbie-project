@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigate }  from "react-router-dom";
 import "./css/footer.css";
 
-const Header = () => {
+const Footer = () => {
   return (
     <>
     <hr/>
-    <div className={"header"}>
+    <div className={"footer"}>
       made by oganesson
     </div>
     </>
@@ -14,4 +14,4 @@ const Header = () => {
   );
 }
 
-export default Header;
+export default Footer;

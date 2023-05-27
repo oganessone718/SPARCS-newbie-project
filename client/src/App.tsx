@@ -15,9 +15,7 @@ import PageNotFound from './pages/404';
 const App = () => {
   const [loggedID, setLoggedID] = React.useState<string|null>(null);
   const [count, setCount] = React.useState<number>(0);
-
-  console.log(loggedID);
-
+  
   React.useEffect( () => {
     setLoggedID(null);
     setCount(0);

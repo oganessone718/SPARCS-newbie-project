@@ -10,8 +10,8 @@ interface Props {
 }
 
 const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
-  const [ID, setID] = React.useState<string>("Please write your ID");
-  const [Password, setPassword] = React.useState<string>("Please write your password");
+  const [ID, setID] = React.useState<string>("");
+  const [Password, setPassword] = React.useState<string>("");
 
   if(loggedID!=null){
     console.log("[login error]: already logged in");
@@ -23,11 +23,10 @@ const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
     const asyncFun = async () => {
       await axios.post( SAPIBase + '/account/login', { ID, Password } )
       .then((account)=>{
-        console.log(account.data);
         if(account.data.success){
           window.alert("You have logged in!")
-          setID("Please write your ID");
-          setPassword("Please write your password");
+          setID("");
+          setPassword("");
           setLoggedID(account.data.ID);
           navigate("/");
         }
@@ -51,6 +50,8 @@ const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <br/>
         <label htmlFor="ID">ID:</label>
         <input
           type="text"
@@ -59,6 +60,7 @@ const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
           onChange={(e) => setID(e.target.value)}
           required
         />
+        <br />
         <label htmlFor="password">Password:</label>
         <input
           type="password"
@@ -67,6 +69,7 @@ const LoginPage: React.FC<Props>= ({ loggedID, setLoggedID }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <br />
         <button type="submit"> Login </button>
       </form>
     </>

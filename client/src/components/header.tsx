@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/header.css";
-import axios from 'axios';
 const SAPIBase = "http://localhost:8080";
 const url = "https://times.kaist.ac.kr/news/articleList.html?sc_serial_code=SRN12&view_type=sm"
 
@@ -25,16 +24,19 @@ const Header: React.FC<Props>= ({ loggedID, setLoggedID }) => {
     return (
       <>
       <div className={"header"}>
-          <div className="logo" onClick={(e) => navigate("/")}>
-            <img src={"./src/images/logo.png"} alt={"logo"} />
-          </div>
-          <button onClick={()=>{window.open(url)}}>
-            <img src={"./src/images/kaisttimes.png"} alt={"kaisttimes"} />
-          </button>
+        <ul className={"header-content"}>
+          <li className="logo" onClick={(e) => navigate("/")}>
+            <img src={"./src/images/logo.png"} alt={"logo"}  width={"300px"} height={"150px"}/>
+          </li>
+        </ul>
+          
           <ul className={"header-content"}>
-            <li onClick={(e) => navigate("/sign-up")}>Sign up</li>
-            <li onClick={(e) => navigate("/log-in")}>Log in</li>
-            <li onClick={(e) => onClickMyPage()}>my page</li>
+            <li onClick={(e) => navigate("/sign-up")}><button>Sign up</button></li>
+            <li onClick={(e) => navigate("/log-in")}><button>Login</button></li>
+            <li onClick={(e) => onClickMyPage()}><button>My page</button></li>
+            <li className="kaisttimes" onClick={()=>{window.open(url)}}>
+              <img src={"./src/images/kaisttimes.png"} alt={"kaisttimes"} width={"100px"} height={"50px"}/>
+            </li>
           </ul>
       </div>
       <hr />
@@ -44,16 +46,19 @@ const Header: React.FC<Props>= ({ loggedID, setLoggedID }) => {
     return (
       <>
       <div className={"header"}>
-          <div className="logo" onClick={(e) => navigate("/")}>
-            <img src={"./src/images/logo.png"} alt={"logo"} />
-          </div>
-          <button onClick={()=>{window.open(url)}}>
-            <img src={"./src/images/kaisttimes.png"} alt={"kaisttimes"} />
-          </button>
-          <ul className={"header-content"}>
+        <ul className={"header-content"}>
+          <li className="logo" onClick={(e) => navigate("/")}>
+            <img src={"./src/images/logo.png"} alt={"logo"}  width={"300px"} height={"150px"}/>
+          </li>
+          
+        </ul>
+          <ul className={"header-content"} >
             <li>user:{loggedID}</li>
-            <li onClick={(e) => onClickLogout()}>Log out</li>
-            <li onClick={(e) => navigate("/my-page")}>my page</li>
+            <li onClick={(e) => onClickLogout()}><button>Log out</button></li>
+            <li onClick={(e) => navigate("/my-page")}><button>My Page</button></li>
+            <li className="kaisttimes" onClick={()=>{window.open(url)}}>
+              <img src={"./src/images/kaisttimes.png"} alt={"kaisttimes"} width={"100px"} height={"50px"}/>
+            </li>
           </ul>
       </div>
       <hr />

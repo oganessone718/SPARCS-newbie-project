@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import "./css/home.css";
+import "./css/detailMJ.css";
 const SAPIBase = "http://localhost:8080";
 
 interface Props {
@@ -14,7 +13,6 @@ interface ICOMMENTInfo { mjName: string, ID: string, nickName: string, comment: 
 
 const DetailPage : React.FC<Props>= ({ loggedID,setLoggedID}) => {
   const locate = useLocation();
-  const navigate = useNavigate();
   const [count, setCount] = React.useState(0);
   const [comment, setComment] = React.useState("");
   
@@ -36,7 +34,6 @@ const DetailPage : React.FC<Props>= ({ loggedID,setLoggedID}) => {
         return;
       }
       const {data} = await axios.post( SAPIBase + '/account/getAccount',{id: loggedID});
-      console.log(data);
       await axios.post( SAPIBase + '/comment/addComment', { mjName:state.name,ID: loggedID, nickName: data.nickName, comment: comment } );
       setCount(count + 1);
     }
@@ -56,12 +53,10 @@ const DetailPage : React.FC<Props>= ({ loggedID,setLoggedID}) => {
   };
 
   if(loggedID!=null){
-    console.log("???")
-    console.log(loggedID);
   return(
       <>
       <div className="Info">
-        <h2>name: {state.name}</h2>
+        <h2>{state.name}</h2>
         <div>location: # {state.location}</div>
         <div>specificLocation: {state.specificLocation}</div>
         <div>mjType: # {state.mjType}</div>
@@ -69,26 +64,23 @@ const DetailPage : React.FC<Props>= ({ loggedID,setLoggedID}) => {
       </div>
       <div className='comments'>
         <h3>comments</h3>
-        <div className="Feed">
           <div className='make-comment'>
             <input type="text" id="comment" value={comment} onChange={(e)=>setComment(e.target.value)}/>
             <button onClick={submitComment}>submit</button>
           </div>
-          <div className={"feed-list"}>
+          <div className={"comment-list"}>
             { COMMENTInfo.map( (val, i) =>{
               return (
-                  <div key={i} className={"feed-item"}>
+                  <div key={i} className={"comment-item"}>
                   <div className={"delete-item"} onClick={(e) => deleteComment(val.ID)}>DELETE</div>
-                  <h3 className={"feed-title"}>{ val.nickName }</h3>
-                  <p className={"feed-body"}> { val.ID }</p>
-                  <p className={"feed-body"}>{ val.comment }</p>
+                  <h3 className={"comment-title"}>{ val.nickName }</h3>
+                  <p className={"comment-body"}>{ val.comment }</p>
                 </div>
                 );
             }
             ) }
           </div>
         </div>
-      </div>
     </>);
   }else{
     return(
@@ -102,22 +94,19 @@ const DetailPage : React.FC<Props>= ({ loggedID,setLoggedID}) => {
         </div>
         <div className='comments'>
           <h3>comments</h3>
-          <div className="Feed">
             <p> If you wanna leave a comment, please login first</p>
-            <div className={"feed-list"}>
+            <div className="comment-list">
               { COMMENTInfo.map( (val, i) =>{
                 return (
-                    <div key={i} className={"feed-item"}>
-                    <h3 className={"feed-title"}>{ val.nickName }</h3>
-                    <p className={"feed-body"}> { val.ID }</p>
-                    <p className={"feed-body"}>{ val.comment }</p>
+                    <div key={i} className={"comment-item"}>
+                    <h3 className={"comment-title"}>{ val.nickName }</h3>
+                    <p className={"comment-body"}>{ val.comment }</p>
                   </div>
                   );
               }
               ) }
             </div>
           </div>
-        </div>
       </>
     );
   }

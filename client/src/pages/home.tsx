@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import Header from "../components/header";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./css/home.css";
-import { set } from 'mongoose';
 
 const SAPIBase = "http://localhost:8080";
 
@@ -37,6 +35,10 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
       await axios.post( SAPIBase + '/mj/deleteMJ', { name: name } );
       const asyncAccountFun = async () => {
         await axios.post( SAPIBase + '/account/deleteMJ', { name: name } );
+        const asyncCommentFun = async () => {
+          await axios.post( SAPIBase + '/comment/deleteMJ', { name: name } );
+        }
+        asyncCommentFun().catch(e => window.alert(`AN ERROR OCCURED! ${e}`));
       }
       asyncAccountFun().catch(e => window.alert(`AN ERROR OCCURED! ${e}`));
       setCount(count - 1);
@@ -88,6 +90,7 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
         value={Sname}
         onChange={(e) => setSName(e.target.value)}
       />
+      <br />
       <label htmlFor="location">장소:</label>
       <select id="location" value={Slocation} onChange={(e)=>{setSLocation(e.target.value)}} required>
       <option value="전체">전체</option>
@@ -112,24 +115,23 @@ const HomePage: React.FC<Props>= ({ loggedID,setLoggedID, count, setCount }) => 
       </select>
     </form>
 
-    <div className="Feed">
-      <h2>MJ List</h2>
-      <div className={"feed-item-add"}>
-        <div className={"post-add-button"} onClick={(e) => navigate("/makeMJ")}>Add New MJ!</div>
+    <div className="MJ">
+      <div className={"mj-item-add"}>
+        <div className={"mj-add-button"} onClick={(e) => navigate("/makeMJ")}>Add New 맛집!</div>
       </div>
-      <div className={"feed-list"}>
+      <div className={"mj-list"}>
         { MJInfo.map( (val, i) =>{
           if((val.name == (Sname) || Sname=="") && (val.location == (Slocation) || Slocation=="전체") && (val.mjType == (SmjType) || SmjType=="전체")){
             return (
-              <div key={i} className={"feed-item"}>
+              <div key={i} className={"mj-item"}>
               <div className={"delete-item"} onClick={(e) => deleteMJ(val.name)}>DELETE</div>
               <div className={"edit-item"} onClick={(e) => editMJ(val)}>EDIT</div>
-              <div className={"edit-item"} onClick={(e) => likeMJ(val.name)}>LIKE</div>
-              <div className={"edit-item"} onClick={(e) => detailMJ(val)}>DETAIL</div>
-              <h2 className={"feed-title"}>{ val.name }</h2>
-              <p className={"feed-body"}># { val.location }</p>
-              <p className={"feed-body"}># { val.mjType }</p>
-              <p className={"feed-body"}>♥ { val.like }</p>
+              <div className={"like-item"} onClick={(e) => likeMJ(val.name)}>LIKE</div>
+              <div className={"detail-item"} onClick={(e) => detailMJ(val)}>DETAIL</div>
+              <h2 className={"mj-title"}>{ val.name }</h2>
+              <p className={"mj-body"}>#{ val.location }</p>
+              <p className={"mj-body"}>#{ val.mjType }</p>
+              <p className={"mj-body"}>♥{ val.like }</p>
             </div>
             );
           }

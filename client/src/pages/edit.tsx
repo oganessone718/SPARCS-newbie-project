@@ -47,6 +47,7 @@ const EditPage = () => {
         onChange={(e) => setName(e.target.value)}
         required
       />
+      <br />
       <label htmlFor="location">장소:</label>
       <select id="location" value={location} onChange={(e)=>{setLocation(e.target.value)}} required>
         <option value="어은동">어은동</option>
@@ -57,6 +58,7 @@ const EditPage = () => {
         <option value="은행동">은행동</option>
         <option value="기타">기타</option>
       </select>
+      <br />
       <label htmlFor="specific-location">주소:</label>
       <input
         type="text"
@@ -65,6 +67,7 @@ const EditPage = () => {
         onChange={(e) => setSpecificLocation(e.target.value)}
         required
       />
+      <br />
       <label htmlFor="location">종류:</label>
       <select id="location" value={mjType} onChange={(e)=>setMJType(e.target.value)} required>
         <option value="한식">한식</option>
@@ -75,6 +78,7 @@ const EditPage = () => {
         <option value="분식">분식</option>
         <option value="기타">기타</option>
       </select>
+      <br />
       <button type="submit"> 맛집 추가하기 </button>
     </form>
     </>

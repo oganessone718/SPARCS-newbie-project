@@ -4,18 +4,27 @@
   /* margin: auto; */
   display: flex;
 }
-
-img{
-  width: 200px;
-  height: 100px;
-  margin-right: 20px;
+.logo{
+  margin-top: 20px;
 }
 
 .header-content {
-  display:flex;
+  list-style-type: none;
   padding: 40px 30px;
 }
 
 .home-link:hover {
+  cursor: pointer;
+}
+
+button{
+  width: 160px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+button:hover{
+  margin-bottom: 10px;
+  font-weight: bold;
   cursor: pointer;
 }

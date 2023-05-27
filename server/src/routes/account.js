@@ -163,9 +163,9 @@ router.post("/signUp", async (req, res) => {
       password: req.body.Password
     });
     if (accountInfo) res.status(200).json({ success: true });
-    else res.status(500).json({ error: "Account SignUp Error" });
+    else res.status(500).json({success: false, error: "Account SignUp Error" });
   } catch (e) {
-    return res.status(500).json({ error: e });
+    return res.status(500).json({success: false, error: e });
   }
 });
 
