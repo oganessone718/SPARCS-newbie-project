@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./css/signup.css";
 const SAPIBase = "http://localhost:8080";
 
 const SignUpPage = () => {
@@ -40,6 +41,7 @@ const SignUpPage = () => {
   return (
     <div className={"account"}>
       <h2>Sign up</h2>
+      <div className={"warning"}> 이 사이트는 보안이 제대로 되어 있지 않으니, <br/>실제 비밀번호를 입력하지는 마세요. </div>
       <div className={"account-item"}>
         NickName:  
         <input
